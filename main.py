@@ -23,7 +23,7 @@ if newornot == "new" or "New":
     password = input("Please enter a secure password. (It must be over 6 charectors)")
     length = len(password)
     while True:
-     if (length < 6):
+     if (length > 6):
         print("Password needs to be above 6 Chars")
         break
      else:
@@ -48,11 +48,36 @@ while True:
     code = random.randint(100000,999999)
     print(code)
     factorauth = input("We have sent a 2 factor authentication code to your phone please type this 6 didgit code in.")
+    if factorauth != code:
+      print("This 2 factor authentication code is incorrect.")
     customer = name + dob + password
     if customer != "info.json":
        print("Sorry this information is incorrect please try again") 
     else:
-      print("Welcome" + name + "Welcome to H banking.")
-      path = input("Where do you wish to go" + name + "Make a payment, See your recent transactions, Account balence, Account Settings.")
-      if "payment" in path:
-       print("Welcome to the payment section " + name + ".")
+      while True:
+       print("Welcome" + name + "Welcome to H banking.")
+       path = input("Where do you wish to go" + name + "Make a payment, See your recent transactions, Account balence, Account Settings.")
+       if "payment" in path:
+        while True:   
+         print("Welcome to the payment section " + name + ".")
+         recipient = input("Who would you like to send a payment to?")
+         sendmoney = input("How much money do you want to send to" + recipient)
+         if recipient == string.lower("Scam", "Unverified", "fake", "fraud"):
+           print("Our automated sources detect this user to be mallcious")
+           agreeornot = input("You may be in danger of a scam. Do you want to proceed?")
+           if sendmoney < 1000:
+             print("This may be a scam" + name + ".")
+             continuescam = input("Due to you sending a large ammount of money to " + recipient + ". This has triggered one of our anti-scam systems. Do you want to continue?")
+             if agreeornot and continuescam == "no" or "No" or "NO":
+               print("No problem" + name + ". I have cancelled this transaction for you. You will now be sent back to the home page")
+             else:
+               paytime = datetime.now()
+               money = {
+                 "name" : name,
+                 "recipient" : recipient,
+                 "Sent" : sendmoney,
+                 "Time of payment" : paytime
+               }
+               with open("paymentinfo.json", "w") as file:
+                json.dump(user, file)
+                break     
