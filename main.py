@@ -80,4 +80,5 @@ while True:
                }
                with open("paymentinfo.json", "w") as file:
                 json.dump(user, file)
-                break     
+                break
+                print("Okay " + name + ".   
