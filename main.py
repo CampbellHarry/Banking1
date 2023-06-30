@@ -23,7 +23,7 @@ if newornot == "new" or "New":
     password = input("Please enter a secure password. (It must be over 6 charectors)")
     length = len(password)
     while True:
-     if (length > 6):
+    if (length > 6):
         print("Password needs to be above 6 Chars")
         break
      else:
@@ -39,8 +39,8 @@ if newornot == "new" or "New":
         with open("info.json", "w") as file:
          json.dump(user, file)
          break         
+if newornot != "new" or "New":
 while True:
- if newornot != "new" or "New":
     print("Hello Existing customer!")
     name = input("Please enter your name.")
     dob = str(input("Please enter your date of birth DD/MM/YYYY"))
@@ -62,8 +62,8 @@ while True:
          print("Welcome to the payment section " + name + ".")
          recipient = input("Who would you like to send a payment to?")
          sendmoney = input("How much money do you want to send to" + recipient)
-         if recipient == string.lower("Scam", "Unverified", "fake", "fraud"):
-           print("Our automated sources detect this user to be mallcious")
+         if recipient == string.lower("Scam", "Unverified", "fake", "fraud","free","duplicate"):
+           print("Our automated sources detect this user to be mallcious.")
            agreeornot = input("You may be in danger of a scam. Do you want to proceed?")
            if sendmoney < 1000:
              print("This may be a scam" + name + ".")
