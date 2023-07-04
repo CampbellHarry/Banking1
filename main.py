@@ -1,84 +1,139 @@
 import json
-import string
-import random 
-import datetime
-import math
-import os
+import random
+from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
 
+app = Flask(__name__)
 
+# Function to load user data
+def load_user():
+    with open("info.json", "r") as file:
+        user = json.load(file)
+        return user
 
+# Function to perform payment
+def perform_payment(name, creditid):
+    print("Welcome to the payment section, " + name + ".")
+    recipient = request.form['recipient']
 
+    suspicious_usernames = ["Scam", "Unverified", "Fake", "Fraud"]  # Add more suspicious usernames if needed
 
-varia = random.randint(1000,9999)
-varib = random.randint(1000,9999) 
-varic = random.randint(1000,9999)
-varid = random.randint(1000,9999)
+    if recipient.lower() in suspicious_usernames:
+        print("Our automated sources detect this user to be malicious.")
+        agree_or_not = request.form['agree_or_not']
 
-#bank openingnew
-newornot = input("Hello there, Are you a new customer or an existing customer?")
-if newornot == "new" or "New":
-    name = input("Welcome new customer! What is your Name?")
-    dob = str(input("What is your date of birth DD/MM/YYYY"))
-    phone = input("Please input your phone number")
-    password = input("Please enter a secure password. (It must be over 6 charectors)")
-    length = len(password)
-    while True:
-    if (length > 6):
-        print("Password needs to be above 6 Chars")
-        break
-     else:
-        #this is kinda like a bank id thing
-        creditid = varia,varib,varic,varid
-        user = {
-    "name": name,
-    "dob": dob,
-    "password": password,
-    "phoneno" : phone,
-    "creditid": creditid
+        if agree_or_not.lower() == "no":
+            print("No problem, " + name + ". I have cancelled this transaction for you.")
+            return redirect(url_for('home'))  # Redirect back to the homepage
+
+    send_money = int(request.form['send_money'])
+
+    if send_money < 10000:
+        agree_or_not1 = request.form['agree_or_not1']
+        if agree_or_not1.lower() == "no":
+            print("No problem, " + name + ". I have cancelled this transaction for you.")
+            return redirect(url_for('home'))  # Redirect back to the homepage
+
+    payment_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    payment_data = {
+        "name": name,
+        "recipient": recipient,
+        "amount": send_money,
+        "payment_time": payment_time,
+        "credit_id": creditid  # Add the credit ID to the payment data
     }
-        with open("info.json", "w") as file:
-         json.dump(user, file)
-         break         
-if newornot != "new" or "New":
-while True:
-    print("Hello Existing customer!")
-    name = input("Please enter your name.")
-    dob = str(input("Please enter your date of birth DD/MM/YYYY"))
-    password = input("Please type your password")
-    code = random.randint(100000,999999)
-    print(code)
-    factorauth = input("We have sent a 2 factor authentication code to your phone please type this 6 didgit code in.")
-    if factorauth != code:
-      print("This 2 factor authentication code is incorrect.")
-    customer = name + dob + password
-    if customer != "info.json":
-       print("Sorry this information is incorrect please try again") 
-    else:
-      while True:
-       print("Welcome" + name + "Welcome to H banking.")
-       path = input("Where do you wish to go" + name + "Make a payment, See your recent transactions, Account balence, Account Settings.")
-       if "payment" in path:
-        while True:   
-         print("Welcome to the payment section " + name + ".")
-         recipient = input("Who would you like to send a payment to?")
-         sendmoney = input("How much money do you want to send to" + recipient)
-         if recipient == string.lower("Scam", "Unverified", "fake", "fraud","free","duplicate"):
-           print("Our automated sources detect this user to be mallcious.")
-           agreeornot = input("You may be in danger of a scam. Do you want to proceed?")
-           if sendmoney < 1000:
-             print("This may be a scam" + name + ".")
-             continuescam = input("Due to you sending a large ammount of money to " + recipient + ". This has triggered one of our anti-scam systems. Do you want to continue?")
-             if agreeornot and continuescam == "no" or "No" or "NO":
-               print("No problem" + name + ". I have cancelled this transaction for you. You will now be sent back to the home page")
-             else:
-               paytime = datetime.now()
-               money = {
-                 "name" : name,
-                 "recipient" : recipient,
-                 "Sent" : sendmoney,
-                 "Time of payment" : paytime
-               }
-               with open("paymentinfo.json", "w") as file:
+
+    with open("paymentinfo.json", "a") as file:
+        json.dump(payment_data, file)
+        file.write('\n') 
+
+    print("Payment successful.") 
+    return redirect(url_for('home'))  # Redirect back to the homepage
+
+# Main function
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/login.html', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        new_or_not = request.form['new_or_not']
+
+        if new_or_not.lower() == "new":
+            name = request.form['name']
+            dob = request.form['dob']
+            phone = request.form['phone']
+            password = request.form['password']
+
+            while len(password) < 6:
+                return render_template('login.html', message="Password needs to be above 6 characters.")
+
+            # Generate credit ID
+            varia = random.randint(1000, 9999)
+            varib = random.randint(1000, 9999)
+            varic = random.randint(1000, 9999)
+            varid = random.randint(1000, 9999)
+            creditid = f"{varia}-{varib}-{varic}-{varid}"
+
+            user = {
+                "name": name,
+                "dob": dob,
+                "password": password,
+                "phone": phone,
+                "creditid": creditid
+            }
+
+            with open("info.json", "a") as file:
                 json.dump(user, file)
-                break
-                print("Okay " + name + ".   
+
+        else:
+            user = load_user()
+
+            while True:
+                name = request.form['name']
+                dob = request.form['dob']
+                password = request.form['password']
+
+                if name == user["name"] and dob == user["dob"] and password == user["password"]:
+                    break
+                else:
+                    return render_template('login.html', message="Sorry, this information is incorrect. Please try again.")
+
+        return redirect(url_for('dashboard'))  # Redirect to the dashboard page
+
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    user = load_user()
+    return render_template('dashboard.html', user=user)
+
+@app.route('/payment', methods=['POST'])
+def payment():
+    user = load_user()
+    return perform_payment(user["name"], user["creditid"])
+
+@app.route('/transactions')
+def transactions():
+    # Implement recent transactions functionality
+    return render_template('transactions.html')
+
+@app.route('/balance')
+def balance():
+    # Implement account balance functionality
+    return render_template('balance.html')
+
+@app.route('/settings')
+def settings():
+    # Implement account settings functionality
+    return render_template('settings.html')
+
+@app.route('/logout')
+def logout():
+    # Code for logging out
+    return redirect(url_for('home'))  # Redirect back to the homepage
+
+# Run the Flask application
+if __name__ == "__main__":
+    app.run()
