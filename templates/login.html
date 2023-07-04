@@ -2,9 +2,48 @@
 <html>
 <head>
     <title>Login</title>
+    
 </head>
+<style>
+        body {
+            background-color: #387D7A;
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-size: 100%,100%;
+            nav-down: auto;
+            text-align: center;
+            align-items: center;
+            color: aliceblue;
+            z-index: 1;
+            display: flex;
+        }
+        .box1 {
+    height: 24%;
+    width: 400px;
+    margin: 0px;
+    padding: 30px;
+    position: fixed;
+    color: rgb(255, 255, 255);
+    border-radius: 25px;
+    text-align: center;
+    background-color: #000000;
+    background-repeat: no-repeat;
+    z-index: 0;
+    top: 25%;
+    left: 38%;
+}
+
+ .box1:hover{
+    box-shadow: 5px 5px 200px #440381;
+ }
+
+
+</style>
 <body>
-    <h1>Login</h1>
+<div class="body">
+    <div class="box1">
+    <h1><b><u>Login</u></b></h1>
     <form action="{{ url_for('login') }}" method="POST">
         <label for="new_or_not">New User:</label>
         <select id="new_or_not" name="new_or_not">
@@ -20,6 +59,8 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
         <input type="submit" value="Login">
+</div>
     </form>
+
 </body>
 </html>

@@ -3,14 +3,155 @@
 <head>
     <title>Dashboard</title>
 </head>
+<style>
+            body {
+  background-color: #387D7A;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-size: 100%,100%;
+  nav-down: auto;
+}
+.box {
+    height: 800px;
+    width: 1100px;
+    color: white;
+    background-color: black;
+    border-radius: 25px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+}
+
+.button {
+            transition: box-shadow .3s;
+            width: auto;
+            height: 100px;
+            margin: auto;
+            border-radius: 10px;
+            border: 1px solid #000000;
+            background: #0CF574;
+            position: fixed;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            min-width: 200px;
+            max-width: 200px;
+            display: flex;
+            justify-content: center;
+            top: 25%;
+            left: 30%;
+            cursor: pointer;
+        }
+        .button:hover{
+            box-shadow: 5px 5px 150px#0CF574;
+        }
+        .button1:hover{
+            box-shadow: 5px 5px 150px#0CF574;
+        }
+        .button2:hover{
+            box-shadow: 5px 5px 150px #DDD1C7;
+        }
+        .button3:hover{
+            box-shadow: 5px 5px 150px #DDD1C7;
+        }
+        .button4:hover{
+            box-shadow: 5px 5px 150px #ff1100;
+        }
+        .button1 {
+            transition: box-shadow .3s;
+            width: auto;
+            height: 100px;
+            margin: auto;
+            border-radius: 10px;
+            border: 1px solid #000000;
+            background: #0CF574;
+            position: fixed;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            min-width: 200px;
+            max-width: 200px;
+            display: flex;
+            justify-content: center;
+            top: 25%;
+            left: 60%;
+            cursor: pointer;
+        }
+        .button2 {
+            transition: box-shadow .3s;
+            width: auto;
+            height: 100px;
+            margin: auto;
+            border-radius: 10px;
+            border: 1px solid #000000;
+            background: #DDD1C7;
+            position: fixed;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            min-width: 200px;
+            max-width: 200px;
+            display: flex;
+            justify-content: center;
+            top: 50%;
+            left: 30%;
+            cursor: pointer;
+        }
+        .button3 {
+            transition: box-shadow .3s;
+            width: auto;
+            height: 100px;
+            margin: auto;
+            border-radius: 10px;
+            border: 1px solid #000000;
+            background: #DDD1C7;
+            position: fixed;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            min-width: 200px;
+            max-width: 200px;
+            display: flex;
+            justify-content: center;
+            top: 50%;
+            left: 60%;
+            cursor: pointer;
+        }
+        .button4 {
+            transition: box-shadow .3s;
+            width: auto;
+            height: 100px;
+            margin: auto;
+            border-radius: 10px;
+            border: 1px solid #000000;
+            background: #ff1100;
+            position: fixed;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            min-width: 200px;
+            max-width: 200px;
+            display: flex;
+            justify-content: center;
+            top: 75%;
+            left: 45%;
+            cursor: pointer;
+        }
+</style>
 <body>
-    <h1>Welcome, {{ user.name }}!</h1>
+    <div class="box">
+    <h1><u> Welcome, {{ user.name }}!</u></h1>
     <ul>
-        <li><a href="/payment">Make a payment</a></li>
-        <li><a href="/transactions">See your recent transactions</a></li>
-        <li><a href="/balance">Check account balance</a></li>
-        <li><a href="/settings">Account Settings</a></li>
-        <li><a href="/logout">Logout</a></li>
+        <a href="/payment"><button class="button">Make a payment</button></a>
+        <a href="/transactions"><button class="button1">See your recent transactions</button></a>
+        <a href="/balance"><button class="button2">Account balance</button></a>
+        <a href="/settings"><button class="button3">Account Settings</button></a>
+        <a href="/logout"><button class="button4">Logout</button></a>
     </ul>
+    </div>
 </body>
 </html>
