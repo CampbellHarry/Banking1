@@ -1,7 +1,7 @@
 import json
 import random
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -29,19 +29,14 @@ def perform_payment(name, creditid):
 
     if recipient.lower() in suspicious_usernames:
         print("Our automated sources detect this user to be malicious.")
-        agree_or_not = request.form['agree_or_not']
-
-        if agree_or_not.lower() == "no":
-            print("No problem, " + name + ". I have cancelled this transaction for you.")
-            return redirect(url_for('home'))  # Redirect back to the homepage
+        flash("This recipient is flagged as suspicious. Please contact customer support for assistance.")
+        return redirect(url_for('fraud_help'))
 
     send_money = int(request.form['send_money'])
 
-    if send_money < 10000:
-        agree_or_not1 = request.form['agree_or_not1']
-        if agree_or_not1.lower() == "no":
-            print("No problem, " + name + ". I have cancelled this transaction for you.")
-            return redirect(url_for('home'))  # Redirect back to the homepage
+    if send_money >= 10000:
+        flash("Transaction amount is above or equal to 10000. Please contact customer support for assistance.")
+        return redirect(url_for('fraud_help'))
 
     payment_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     payment_data = {
@@ -54,10 +49,10 @@ def perform_payment(name, creditid):
 
     with open("paymentinfo.json", "a") as file:
         json.dump(payment_data, file)
-        file.write('\n') 
+        file.write('\n')
 
-    print("Payment successful.") 
-    return redirect(url_for('home'))  # Redirect back to the homepage
+    print("Payment successful.")
+    return redirect(url_for('dashboard'))  # Redirect back to the dashboard
 
 # Main function
 @app.route('/')
@@ -99,23 +94,20 @@ def login():
             with open("info.json", "w") as file:
                 json.dump(users, file)
 
-            session["name"] = user["name"]
-            session["password"] = user["password"]
+            return redirect(url_for('login'))
 
-        else:
+        elif new_or_not.lower() == "returning":
             name = request.form['name']
             password = request.form['password']
 
             user = find_user(name, password)
 
-            if user is None:
-                return render_template('login.html', message="Sorry, this information is incorrect. Please try again.")
-
-            session["name"] = user["name"]
-            session["password"] = user["password"]
-
-        session["authenticated"] = True
-        return redirect(url_for('dashboard'))  # Redirect to the dashboard page
+            if user is not None:
+                session['authenticated'] = True
+                session['user'] = user
+                return redirect(url_for('dashboard'))
+            else:
+                return render_template('login.html', message="Invalid username or password.")
 
     return render_template('login.html')
 
@@ -124,50 +116,53 @@ def dashboard():
     if "authenticated" not in session or not session["authenticated"]:
         return redirect(url_for('login'))
 
-    user = find_user(session["name"], session["password"])
-
+    user = session.get('user')
     return render_template('dashboard.html', user=user)
 
-@app.route('/payment', methods=['POST'])
+@app.route('/payment', methods=['GET', 'POST'])
 def payment():
-    if "authenticated" not in session or not session["authenticated"]:
+    user = session.get('user')
+
+    if user is None:
         return redirect(url_for('login'))
 
-    user = find_user(session["name"], session["password"])
+    if request.method == 'POST':
+        return perform_payment(user["name"], user["creditid"])
 
-    return perform_payment(user["name"], user["creditid"])
+    return render_template('payment.html', user=user)
+
 
 @app.route('/transactions')
 def transactions():
     if "authenticated" not in session or not session["authenticated"]:
         return redirect(url_for('login'))
 
-    # Implement recent transactions functionality
-    return render_template('transactions.html')
+    # Load transaction data from paymentinfo.json
+    with open("paymentinfo.json", "r") as file:
+        transactions = [json.loads(line) for line in file]
 
-@app.route('/balance')
-def balance():
-    if "authenticated" not in session or not session["authenticated"]:
-        return redirect(url_for('login'))
+    return render_template('transactions.html', transactions=transactions)
 
-    # Implement account balance functionality
-    return render_template('balance.html')
-
-@app.route('/settings')
-def settings():
-    if "authenticated" not in session or not session["authenticated"]:
-        return redirect(url_for('login'))
-
-    # Implement account settings functionality
-    return render_template('settings.html')
 
 @app.route('/logout')
 def logout():
-    session.pop("authenticated", None)
-    session.pop("name", None)
-    session.pop("password", None)
-    return redirect(url_for('home'))  # Redirect back to the homepage
+    session.pop('authenticated', None)
+    session.pop('user', None)
+    return redirect(url_for('login'))
 
-# Run the Flask application
-if __name__ == "__main__":
-    app.run()
+@app.route('/fraud-help')
+def fraud_help():
+    return render_template('Fraudhelp.html')
+
+@app.route('/settings')
+def settings():
+    user = session.get('user')
+
+    if user is None:
+        return redirect(url_for('login'))
+
+    return render_template('settings.html', user=user)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

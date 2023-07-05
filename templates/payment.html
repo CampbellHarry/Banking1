@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<style>
+    body {
+        background-color: #387D7A;
+    }
+    .box {
+        height: 100px;
+        width: auto;
+        color: white;
+        background-color: black;
+        text-align: center;
+        align-items: center;
+    }
+</style>
+<body>
+    <div class="box">
+        <h1>Welcome to the payment center, {{ user.name }}.</h1>
+    </div>
+    <form method="post" action="/payment">
+        <label for="recipient">Recipient:</label>
+        <input type="text" id="recipient" name="recipient">
+        <br>
+        <label for="send_money">Amount to Send:</label>
+        <input type="number" id="send_money" name="send_money">
+        <br>
+        <label for="agree_or_not">Do you agree to continue with the payment?</label>
+        <input type="radio" id="agree_or_not" name="agree_or_not" value="yes" required> Yes
+        <input type="radio" id="agree_or_not" name="agree_or_not" value="no"> No
+        <br>
+        <input type="submit" value="Make Payment">
+    </form>
+</body>
+</html>

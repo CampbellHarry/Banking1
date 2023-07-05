@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+</head>
+<style>
+        body {
+            background-color: #387D7A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .setbox{
+            background-color: black;
+            height: 800px;
+            width: auto;
+            text-align: center;
+            align-items: center;
+            color: white;
+            border-radius: 25px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .button{
+            background-color: #00ff00;
+            height: 50px;
+            width: 400px;
+            text-align: center;
+            align-items: center;
+            color: white;
+            border-radius: 25px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: auto;
+            padding-top: 0.1px;
+            padding-bottom: 2px;
+            color: black;
+        }
+        .button.active{
+            background-color: red;
+            color: white;
+            
+        }
+</style>
+<body>
+    <div class="setbox">
+        <h1>Welcome to your settings</h1>
+        <p>Here you can alter and change your account settings, {{ user.name }}</p>
+        <button class="button" onclick="toggleActive(this)">
+            <h2 id="securityText">Weekly Security checks | On</h2>
+        </button>
+    </div>
+
+    <script>
+        function toggleActive(button) {
+            button.classList.toggle("active");
+            toggleText(); // Call the toggleText function
+        }
+        
+        function toggleText() {
+            var securityText = document.getElementById("securityText");
+            if (securityText.innerHTML === "Weekly Security checks | On") {
+                securityText.innerHTML = "Weekly Security checks | Off";
+            } else {
+                securityText.innerHTML = "Weekly Security checks | On";
+            }
+        }
+    </script>
+</body>
+</html>
