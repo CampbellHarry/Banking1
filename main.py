@@ -25,7 +25,8 @@ def perform_payment(name, creditid):
     print("Welcome to the payment section, " + name + ".")
     recipient = request.form['recipient']
 
-    suspicious_usernames = ["Scam", "Unverified", "Fake", "Fraud"]  # Add more suspicious usernames if needed
+    with open('sus.txt', 'r') as file:
+        suspicious_usernames = file.read().splitlines()
 
     if recipient.lower() in suspicious_usernames:
         print("Our automated sources detect this user to be malicious.")
@@ -37,6 +38,8 @@ def perform_payment(name, creditid):
     if send_money >= 10000:
         flash("Transaction amount is above or equal to 10000. Please contact customer support for assistance.")
         return redirect(url_for('fraud_help'))
+    
+    
 
     payment_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     payment_data = {
@@ -44,7 +47,7 @@ def perform_payment(name, creditid):
         "recipient": recipient,
         "amount": send_money,
         "payment_time": payment_time,
-        "credit_id": creditid  # Add the credit ID to the payment data
+        "credit_id": creditid,  # Add the credit ID to the payment data
     }
 
     with open("paymentinfo.json", "a") as file:
@@ -80,12 +83,18 @@ def login():
             varid = random.randint(1000, 9999)
             creditid = f"{varia}-{varib}-{varic}-{varid}"
 
+            #Generate bal
+            bal = random.randint(0,9999)
+
+
+
             user = {
                 "name": name,
                 "dob": dob,
                 "password": password,
                 "phone": phone,
-                "creditid": creditid
+                "creditid": creditid,
+                "balance": bal
             }
 
             users = load_user()

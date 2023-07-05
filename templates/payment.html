@@ -8,32 +8,90 @@
 <style>
     body {
         background-color: #387D7A;
-    }
-    .box {
-        height: 100px;
-        width: auto;
-        color: white;
-        background-color: black;
-        text-align: center;
-        align-items: center;
-    }
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 17vh;
+    margin: 0;
+}
+
+.box {
+    height: 100px;
+    width: 500px;
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 12px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 50px #0CF574;
+}
+.pay {
+    height: 500px;
+    width: 500px;
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 12px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.accept{
+    height: 50px;
+    width: 100px;
+    color: black;
+    background-color: #ffffff;
+    top: 60%;
+    margin-top: 50px;
+}
+.accept:hover{
+    animation: 0.4s;
+    box-shadow: 5px 5px 100px #0CF574;
+    background-color: #0CF574;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f1f1f1;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    background-color: #e6e6e6;
+}
 </style>
 <body>
     <div class="box">
         <h1>Welcome to the payment center, {{ user.name }}.</h1>
     </div>
+<div class="pay">
     <form method="post" action="/payment">
         <label for="recipient">Recipient:</label>
-        <input type="text" id="recipient" name="recipient">
+        <input type="text" id="recipient" name="recipient" required>
         <br>
         <label for="send_money">Amount to Send:</label>
-        <input type="number" id="send_money" name="send_money">
+        <input type="number" id="send_money" name="send_money" required>
         <br>
         <label for="agree_or_not">Do you agree to continue with the payment?</label>
         <input type="radio" id="agree_or_not" name="agree_or_not" value="yes" required> Yes
         <input type="radio" id="agree_or_not" name="agree_or_not" value="no"> No
         <br>
-        <input type="submit" value="Make Payment">
+        <button class="accept" type="submit">Make Payment</button>
     </form>
+</div>
 </body>
 </html>
