@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
+app.static_folder = 'img'
 
 # Function to load user data
 def load_user():
@@ -38,8 +39,6 @@ def perform_payment(name, creditid):
     if send_money >= 10000:
         flash("Transaction amount is above or equal to 10000. Please contact customer support for assistance.")
         return redirect(url_for('fraud_help'))
-    
-    
 
     payment_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     payment_data = {
@@ -55,7 +54,8 @@ def perform_payment(name, creditid):
         file.write('\n')
 
     print("Payment successful.")
-    return redirect(url_for('dashboard'))  # Redirect back to the dashboard
+    session['payment_successful'] = True
+    return redirect(url_for('done'))
 
 # Main function
 @app.route('/')
@@ -83,10 +83,8 @@ def login():
             varid = random.randint(1000, 9999)
             creditid = f"{varia}-{varib}-{varic}-{varid}"
 
-            #Generate bal
-            bal = random.randint(0,9999)
-
-
+            # Generate bal
+            bal = random.randint(0, 9999)
 
             user = {
                 "name": name,
@@ -172,6 +170,15 @@ def settings():
 
     return render_template('settings.html', user=user)
 
+
+@app.route('/done')
+def done():
+    payment_successful = session.get('payment_successful')
+    if payment_successful:
+        del session['payment_successful']
+        return render_template('done.html')
+    else:
+        return redirect(url_for('home'))  # Redirect to the home page if payment not successful
 
 if __name__ == '__main__':
     app.run(debug=True)

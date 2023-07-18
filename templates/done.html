@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Verified.</title>
+<style>
+    body{
+        background-color: #387D7A;
+    }
+    .comp {
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    border: 30px;
+    border-color: rgb(0, 255, 34);
+    height: 700px;
+    width: 800px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    box-shadow: 5px 5px 100px green;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+</style>
+</head>
+<body>
+    <div class="comp">
+    <h1>Payment Verified</h1>
+     <img src="/img/gif1.gif" alt="Animated GIF">
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "/dashboard";
+        }, 5000);  // Redirect after 5 seconds
+    </script>
+</body>
+</html>
