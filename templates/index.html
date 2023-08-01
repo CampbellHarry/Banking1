@@ -1,150 +1,291 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bank Application</title>
-    <script type="text/javascript" src="https://livejs.com/live.js"></script>
-    <style>
-        body {
-            background-color: rgb(0, 0, 0);
-            background-repeat: repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-size: 100%,100%;
-            nav-down: auto;
-        }
-        
-        .topbar {
-            height: 100px;
-            width: 100%;
-            background-color: #387D7A;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 20px;
-            border-color: rgb(0, 174, 255);
-            margin: 0; /* Set margin to 0 */
-            position: fixed;
-            top: 0;
-            z-index: 1;
-            left: 0;
-        }
-        .sidebar {
-            width: 100px;
-            height: 100%;
-            background-color: #387D7A;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 0px;
-            border-color: #387D7A;
-            margin: 1; /* Set margin to 0 */
-            position: fixed;
-            top: 0;
-            z-index: 1;
-            left: 0;
-            text-align: right;
-        }
-        
-        .button {
-            transition: box-shadow .3s;
-            width: auto;
-            height: 130px;
-            margin: auto;
-            border-radius: 10px;
-            border: 1px solid #000000;
-            background: #0CF574;
-            position: fixed;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            min-width: 200px;
-            max-width: 200px;
-            display: flex;
-            justify-content: center;
-            top: 25%;
-            left: 45%;
-            cursor: pointer;
-        }
-        .button1 {background-color: #0CF574;}
-
-        .button:hover {
-            box-shadow: 5px 5px 150px #0CF574; 
-        }
-        .h1{
-            z-index: 2;
-        }
-        .box1{
-            height: 140px;
-            width: 100px;
-            background-color: #440381;
-            color: #DDD1C7;
-            align-items: center;
-            top: 50%;
-            left: 35%;
-            position: fixed;
-            text-align: center;
-            border-radius: 25px;
-            text-size-adjust: -4;
-            font-size: xx-small;
-            padding-bottom: 10px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 5px;
-        }
-        .box1:hover{
-            animation: 0.6s;
-            height: 200px;
-            width: 700px;
-            font-size: larger;
-        }
-        .box1:hover{
-           box-shadow: 5px 5px 50px #440381;
-        }
-        .button2 {
-            transition: box-shadow .3s;
-            width: auto;
-            height: 50px;
-            margin: auto;
-            border-radius: 10px;
-            border: 1px solid #000000;
-            background: #387D7A;
-            position: fixed;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            min-width: 200px;
-            max-width: 200px;
-            display: flex;
-            justify-content: center;
-            top: 90%;
-            left: 4.8%;
-            cursor: pointer;
-        }
-        .button2:hover{
-           box-shadow: 5px 5px 50px #387D7A;
-        }
-        .sidebar:hover{
-            width: 200px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test bank</title>
+    <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
-    <div class="body">
-        <div class="topbar">
-            <h1>Welcome to the Test Bank.</h1>
-        </div>
-    </div>
-    <div class="box">
-        <a href="/login.html"><button class="button">Login or Register</button></a>
-    </div>
-<div class="sidebar">
-</div>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Kanit:ital,wght@1,700&display=swap');
+    body{
+    margin: 0 auto;
+    padding: 0px;
+    font-family: monospace;
+    background-color: black;
+    scroll-behavior: smooth;
+    max-width: 100%;
+}
+header{
+    width: 100%;
+    height: auto;
+    background-color: black;
+    font-size: xx-large;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Kanit', sans-serif;
+    padding: 20px 0;
+    color: white;
+    border-color: rgb(0, 255, 255);
+    border-style: solid;
+    border-width: 5px;
+}
+section{
+    display: grid;
+    place-items: center;
+    align-items: center;
+    min-height: 70vh;
+    font-size: xx-large;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  footer {
+    background-image: linear-gradient(to center, #23B5D3, black);
+    padding: 0;
+    text-align: center;
+    bottom: 0%;
+}
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0%;
+    color: white;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+}
 
-<div class="button2">
-    <h1>Admin Only.</h1>
-</div>
-<div class="sidebar">
-    <h1>test</h1>
-</div>
+.social-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    margin: 10px;
+    bottom: 0%;
+}
+.social-links a:hover {
+    color: #40F99B;
+}
+.box{
+    text-align: center;
+    background-color: black;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    border-radius: 25px;
+    height: 150px;
+    width: 870px;
+    font-size: xx-large;
+    font-size: 34px;
+    color: white;
+    align-items: center;
+    border-color: white;
+    border-style: solid;
+    border-width: 5px;
+    box-shadow: 5px 10px white;
+}
+.box1{
+    text-align: center;
+    background-color: black;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    border-radius: 25px;
+    height: 150px;
+    width: 500px;
+    font-size: xx-large;
+    font-size: 40px;
+    color: white;
+    align-items: center;
+    border-color: blue;
+    border-style: solid;
+    border-width: 5px;
+    cursor: pointer;
+    box-shadow: 5px 10px blue;
+}
+.box2{
+    text-align: center;
+    background-color: black;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    border-radius: 25px;
+    height: 150px;
+    width: 500px;
+    font-size: xx-large;
+    font-size: 15px;
+    color: white;
+    align-items: center;
+    border-color: rgb(0, 255, 191);
+    border-style: solid;
+    border-width: 5px;
+    cursor: pointer;
+    box-shadow: 5px 10px rgb(0, 255, 191);
+}
+.box3{
+    text-align: center;
+    background-color: black;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    border-radius: 25px;
+    height: 70px;
+    width: 500px;
+    font-size: xx-large;
+    font-size: 15px;
+    color: white;
+    align-items: center;
+    border-color: rgb(0, 255, 0);
+    border-style: solid;
+    border-width: 5px;
+    cursor: pointer;
+    box-shadow: 5px 10px rgb(0, 255, 0);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin-top: 20px;
+    padding: 10px;
+    border-width: 5px;
+    border-color: rgb(0, 255, 255);
+    border-style: solid;
+
+}
+
+.nav-menu li {
+    position: relative;
+    margin: 0 15px;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.nav-menu li a:hover {
+    color: #40F99B;
+}
+
+/* Dropdown Styling */
+.nav-menu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-menu li:hover ul {
+    display: block;
+}
+
+.nav-menu li ul li {
+    display: block;
+    margin: 8px 0;
+}
+
+.nav-menu li ul li a {
+    color: white;
+    font-size: 16px;
+}
+
+
+.hidden{
+    opacity: 0;
+    transition: 10s;
+}
+.show{
+    opacity: 1;
+    transition: 10s;
+}
+
+</style>
+<body>
+    <header>
+        <b>Welcome to Test bank</b>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#about" data-scroll="about">About</a></li>
+                <li><a href="#service" data-scroll="service">Services</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hidden">
+        <div class="box">
+            <h4>Welcome to something a little special.</h4>
+             <p>Welcome to Test bank.</p>
+        </div>
+        <a href="login.html"><button class="box1">
+            Login or Register
+        </button>
+        </a>
+    </section>
+    <section class="hidden" id="service">
+        <div class="box3">
+            <h1>Services</h1>
+        </div>
+    </section>
+    
+    <section class="hidden" style="transition-delay: 500ms;" id="about">
+        <h2 style="color: white;"><u>About us</u></h2>
+        <div class="box2" style="left: 70%;">
+            <h2>This is a fake banking website designed by Harry to test his skills in full stack web development</h2>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <h2>Test bank</h2>
+        </div>
+    </footer>
 </body>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        console.log(entry)
+        if (entry.isIntersecting){
+            entry.target.classList.add('show');
+        } else{
+            entry.target.classList.remove('show');
+        }
+    });
+    });
+    
+    const hiddenElements = document.querySelectorAll('.hidden')
+    hiddenElements.forEach((el) => observer.observe(el));
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('a[data-scroll]');
+        links.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const target = document.getElementById(this.dataset.scroll);
+                const topOffset = 70; // Adjust this value based on your header's height
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition - topOffset;
+
+                window.scrollBy({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
 </html>
