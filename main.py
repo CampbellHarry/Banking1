@@ -1,11 +1,11 @@
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash
 import json
 import random
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
-app.static_folder = 'img'
+app.static_folder = 'static'
 
 # Function to load user data
 def load_user():
@@ -56,6 +56,15 @@ def perform_payment(name, creditid):
     print("Payment successful.")
     session['payment_successful'] = True
     return redirect(url_for('done'))
+
+@app.route('/get_user_data', methods=['GET'])
+def get_user_data():
+    user = session.get('user')
+    if user is not None:
+        return jsonify({'user': user})
+    else:
+        return jsonify({'user': None})
+
 
 # Main function
 @app.route('/')
