@@ -27,6 +27,21 @@ body {
     box-shadow: 5px 5px 15px 10px gray;
 }
 
+.button:hover{
+    background-color: darkgray;
+}
+.button1:hover{
+    background-color: darkgray;
+}
+.button2:hover{
+    background-color: darkgray;
+}
+.button3:hover{
+    background-color: darkgray;
+}
+.button4:hover{
+    background-color: #ff1100;
+}
 .button {
             transition: box-shadow .3s;
             width: 100%;
@@ -70,7 +85,7 @@ body {
             margin: auto;
             border-radius: 10px;
             border: 1px solid #000000;
-            background: #DDD1C7;
+            background: gray;
             position: fixed;
             align-items: center;
             text-align: center;
@@ -88,7 +103,7 @@ body {
             margin: auto;
             border-radius: 10px;
             border: 1px solid #000000;
-            background: #DDD1C7;
+            background: gray;
             position: fixed;
             align-items: center;
             text-align: center;
@@ -106,7 +121,7 @@ body {
             margin: auto;
             border-radius: 10px;
             border: 1px solid #000000;
-            background: #ff1100;
+            background: darkred;
             position: fixed;
             align-items: center;
             text-align: center;
@@ -151,6 +166,24 @@ body {
             justify-content: center;
             top: 12%;
             left: 66%;
+            z-index: 2;
+}
+.card2{
+    transition: box-shadow .3s;
+            width: 8%;
+            height: 100px;
+            margin: auto;
+            border-radius: 10px;
+            border: 5px solid #000000;
+            background: gray;
+            position: fixed;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            top: 32%;
+            left: 73%;
             z-index: 2;
 }
 
@@ -199,6 +232,9 @@ body {
             <div class="textc1">
                 <h2>Make a payment here.</h2>
             </div>
+            <div class="card2">
+                <img src="-.png" style="height: 200px;width: 300px;">
+            </div>
         </button></a>
         <a href="/transactions"><button class="button1">
             <div class="card">
@@ -213,7 +249,7 @@ body {
         </button></a>
         <a href="/balance"><button class="button2"></button></a>
         <a href="/settings"><button class="button3"></button></a>
-        <a href="/logout"><button class="button4"></button></a>
+        <a href="/logout"><button class="button4"><h2 style="color: white;">Log out</h2></button></a>
     </ul>
     </div>
     <div class="boxL">
@@ -228,11 +264,11 @@ body {
     function updateWelcomeText(user) {
         if (user) {
             if (hr < 12) {
-                document.getElementById("welcomeText").textContent = `Good morning, ${user.name}!`;
+                document.getElementById("welcomeText").textContent = `Good morning, ${user.name}! Welcome to your dashboard.`;
             } else if (hr < 18) {
-                document.getElementById("welcomeText").textContent = `Good afternoon, ${user.name}!`;
+                document.getElementById("welcomeText").textContent = `Good afternoon, ${user.name}! Welcome to your dashboard.`;
             } else {
-                document.getElementById("welcomeText").textContent = `Good evening, ${user.name}!`;
+                document.getElementById("welcomeText").textContent = `Good evening, ${user.name}! Welcome to your dashboard.`;
             }
         }
     }
